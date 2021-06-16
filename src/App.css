@@ -71,21 +71,29 @@ h1 {
 
 .joinBtn {
   font-size: 1pc;
-  padding: 3px;
   width: 15vw;
   height: 5vh;
-  border-radius: 5rem;
-  outline: none;
-  border: none;
-  background-color: #82583E;
-  transition: 250ms;
   margin-bottom: 5px;
 }
 
-.joinBtn:hover {
+.joinBtn:hover, .btn:hover {
   transform: scale(1.05);
   cursor: pointer;
   background-color: #6b4833;
+}
+
+.btn {
+  margin: 5px;
+  width: 8vw;
+}
+
+.joinBtn, .btn {
+  padding: 3px;
+  transition: 250ms;
+  background-color: #82583E;
+  border-radius: .5rem;
+  outline: none;
+  border: none;
 }
 
 .status-online {color: rgb(19, 197, 19)}
@@ -97,3 +105,15 @@ h1 {
 .status-idle {color: rgb(158, 156, 16)}
 
 footer h3 {margin: 0}
+
+.charInputs {
+  border-radius: .4rem;
+  outline: none;
+  border: none;
+  width: 20px;
+  padding: 5px;
+  margin: 10px;
+  color: black;
+  text-align: center;
+  font-weight: bolder;
+}

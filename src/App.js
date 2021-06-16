@@ -3,9 +3,13 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import InfoModal from './Components/infoModal.component';
 import ActiveUser from './Components/ActiveUser.component';
+import Game from './Components/GameModal.component';
 
 export default function App() {
+  var selectedMembers = [];
+  const membersToSelect = ["Carl-bot"];
   const [members, setMembers] = useState([{}]);
+  const [showGame, setShowGame] = useState(false);
 
   async function GetServerData() {
     let rawData = await fetch('https://discord.com/api/guilds/800887995385249812/widget.json');
@@ -16,6 +20,13 @@ export default function App() {
     GetServerData().then(data => setMembers(data.members))
   }, [])
 
+  function OnMemberClick_Handle(e) {
+    if (membersToSelect.find(member => member === e.target.innerText) && !selectedMembers.find(member => member === e.target.innerText)) {
+      selectedMembers.push(e.target.innerText);
+      if (selectedMembers.length === membersToSelect.length) setShowGame(true); 
+    }
+  }
+
   return (
     <Router>
       <div className="App">
@@ -25,26 +36,33 @@ export default function App() {
         <main>
           <Switch>
             <Route exact path="/">
-              <InfoModal id="presentation" title="Quem somos" >
-                  {<p>Somos uma comunidade de doidos apaixonados por diferentes tipos Hamburguers, Memes e por coisas consideradas "CRINGE".</p>} 
-              </InfoModal>
-              
-              <InfoModal id="join" title="Junte-se a nós" >
-                {(
+              {
+                !showGame ?
                   <>
-                  <p>Juntando-se a nós você ira conhecer diferentes tipos de doidos, memes algumas vezes engraçados e outras vezes estranhos e scripts gratuitos para flodar seus amigos no Zap Zap ou sair de alguma aula EAD chata.</p>
-                  <Link to="/Rules"><button className="joinBtn">Entrar</button></Link>
+                  <InfoModal id="presentation" title="Quem somos" >
+                      {<p>Somos uma comunidade de doidos apaixonados por diferentes tipos Hamburguers, Memes e por coisas consideradas "CRINGE".</p>} 
+                  </InfoModal>
+                  
+                  <InfoModal id="join" title="Junte-se a nós" >
+                    {(
+                      <>
+                      <p>Juntando-se a nós você ira conhecer diferentes tipos de doidos, memes algumas vezes engraçados e outras vezes estranhos e scripts gratuitos para flodar seus amigos no Zap Zap ou sair de alguma aula EAD chata.</p>
+                      <Link to="/Rules"><button className="joinBtn">Entrar</button></Link>
+                      </>
+                    )}
+                  </InfoModal>
+
+                  <InfoModal id="activeMenbers" modalId="modalActiveMembers" title="Membros ativos" >
+                      {members.map(member => member.username && member.username[0] !== '!' && <ActiveUser onClick={OnMemberClick_Handle} id={member.id} avatar={member.avatar_url} name={member.username} status={member.status} />)}
+                  </InfoModal>
+
+                  <InfoModal title="Nossos Bots" >
+                    {members.map(member => member.username && member.username[0] === '!' && <ActiveUser id={member.id} avatar={member.avatar_url} name={member.username} status={member.status} />)} 
+                  </InfoModal>
                   </>
-                )}
-              </InfoModal>
-
-              <InfoModal id="activeMenbers" modalId="modalActiveMembers" title="Membros ativos" >
-                  {members.map(member => member.username && member.username[0] !== '!' && <ActiveUser id={member.id} avatar={member.avatar_url} name={member.username} status={member.status} />)}
-              </InfoModal>
-
-              <InfoModal title="Nossos Bots" >
-                  {members.map(member => member.username && member.username[0] === '!' && <ActiveUser id={member.id} avatar={member.avatar_url} name={member.username} status={member.status} />)} 
-              </InfoModal>
+                :
+                <Game />
+              }
             </Route>
 
             <Route path="/Rules">
@@ -81,11 +99,6 @@ export default function App() {
             </Route>
           </Switch>
         </main>
-        <Route exact path="/">
-          <footer>
-              <h3>Site desenvolvido por Coffee-Developer</h3>
-          </footer>
-        </Route>
       </div>
     </Router>
   );
