@@ -34,16 +34,12 @@ export default function Index() {
                 !showGame ?
                   <>
                   <InfoModal id="presentation" title="Quem somos" >
-                      {<p>Somos uma comunidade de doidos apaixonados por diferentes tipos Hamburguers, Memes e por coisas consideradas "CRINGE".</p>} 
+                      <p>Somos uma comunidade de doidos apaixonados por diferentes tipos Hamburguers, Memes e por coisas consideradas "CRINGE".</p> 
                   </InfoModal>
                   
                   <InfoModal id="join" title="Junte-se a nós" >
-                    {(
-                      <>
                       <p>Juntando-se a nós você ira conhecer diferentes tipos de doidos, memes algumas vezes engraçados e outras vezes estranhos e scripts gratuitos para flodar seus amigos no Zap Zap ou sair de alguma aula EAD chata.</p>
                       <Link to="/Rules"><button className="joinBtn">Entrar</button></Link>
-                      </>
-                    )}
                   </InfoModal>
     
                   <InfoModal id="activeMenbers" modalId="modalActiveMembers" title="Membros ativos" >
