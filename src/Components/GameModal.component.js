@@ -2,7 +2,7 @@ import InfoModal from './infoModal.component'
 import { useEffect, useState } from 'react'
 
 export default function Game() {
-    const Words = ["X-Tudo", "X-Picanha", "X-Costela", "X-Bacon", "X-Salada", "X-Burguer"]
+    const Words = ["X-Tudo", "X-Picanha", "X-Costela", "X-Bacon", "X-Salada", "X-Burguer", "X-Ratão", "X-Cheddar"]
     const [result, setResult] = useState("");
     const [isGameActive, setIsGameActive] = useState(true);
     const [generatedWord, setGeneratedWord] = useState("");
@@ -40,7 +40,6 @@ export default function Game() {
 
     function SetCorrectByIndex(...index) {
         const inputs = document.getElementsByClassName('charInputs');
-        // eslint-disable-next-line array-callback-return
         index.forEach(index => {
             inputs[index].value = generatedWord[index];
             inputs[index].readOnly = true;
@@ -85,28 +84,24 @@ export default function Game() {
 
     return (
         <InfoModal title="Jogo da forca">
-            {(
-                <>
                 {isGameActive ?
                 <>
-                <div>
-                    <h3 style={{padding: '5px', margin: '0', display: 'inline-block'}}>Vitórias: {wins}</h3>
-                    <h3 style={{padding: '5px', margin: '0', display: 'inline-block'}}>Derrotas: {loses}</h3>
-                </div>
-                <p>Erros: {errorsCount} de {errorsMax}</p>
-                <p>Acertos: {hitsCount}</p>
-                <div>{inputsToDisplay}</div>
-                <button className="btn" onClick={CheckHandle}>Checar</button>
-                <button className="btn" onClick={HintHandle}>Dica</button>
+                    <div>
+                        <h3 style={{padding: '5px', margin: '0', display: 'inline-block'}}>Vitórias: {wins}</h3>
+                        <h3 style={{padding: '5px', margin: '0', display: 'inline-block'}}>Derrotas: {loses}</h3>
+                    </div>
+                    <p>Erros: {errorsCount} de {errorsMax}</p>
+                    <p>Acertos: {hitsCount}</p>
+                    <div>{inputsToDisplay}</div>
+                    <button className="btn" onClick={CheckHandle}>Checar</button>
+                    <button className="btn" onClick={HintHandle}>Dica</button>
                 </>
                 :
                 <>
-                <h2>{result}</h2>
-                <button className="btn" onClick={NewGameHandle}>Novo jogo</button>
+                    <h2>{result}</h2>
+                    <button className="btn" onClick={NewGameHandle}>Novo jogo</button>
                 </>
                 }
-                </>
-            )}
         </InfoModal>
     )
 }
