@@ -27,7 +27,7 @@ export default function Rules() {
                   </ol>
                 </li>
               </ul>
-              <a href="https://discord.gg/QGc8unej"><button className="joinBtn">Quero entrar logo</button></a>
+              <a href="https://discord.gg/jQGyK9D386"><button className="joinBtn">Quero entrar logo</button></a>
             </InfoModal>
         </div>
     )
